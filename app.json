@@ -1,0 +1,28 @@
+{
+  "pages":[
+    "pages/myorder/myorder",
+    "pages/tm/tm",
+    "pages/bb/bb",
+    "pages/detail/detail"
+  ],
+  "tabBar":{
+    "borderStyle": "white",
+    "list": [{
+        "text": "监控",
+        "pagePath": "pages/myorder/myorder",
+        "iconPath": "images/store.png",
+        "selectedIconPath": "images/store-selected.png"
+    },{
+        "text": "控制",
+        "pagePath": "pages/tm/tm",
+        "iconPath": "images/store.png",
+        "selectedIconPath": "images/store-selected.png"
+    }]
+  },
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "TinyMonit",
+    "navigationBarTextStyle":"black"
+  }
+}
