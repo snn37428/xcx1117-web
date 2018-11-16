@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<scroll-view scroll-y="true" class="tm container">
+    <view class="m" >
+        <text class="m-name">名称: 温湿度计01温度</text>
+        <view class="m-data">
+            <view class="m-data-right">
+                <label class="m-data-top-left">负载: <text class="m-green">iPlantType0208</text></label>
+                <label class="m-data-top-right">数值: <text class="m-green"> 15 *C</text></label>
+            </view>
+        </view>
+    </view>
+</scroll-view>

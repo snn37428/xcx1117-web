@@ -1,0 +1,42 @@
+
+<view class='container'>
+ <view class='card  b-shadow' bindtap='toggleBtn' >
+      <view class='nearCard-fl'>
+        <image src='../../images/clock.png'></image>
+      </view>
+      <view class='nearCard-fr'>
+        <view>采集时间：
+          <text class='ck'>2018-01-01 11:33:34</text>
+        </view>
+        <view>系统时间：
+          <text class='ck'>2018-01-01 11:53:34</text>
+        </view>
+        <view>通信线程：
+          <text class='c-green'>正常</text>
+        </view>
+      </view>
+  
+    </view>
+  <block wx:for-items="{{carInfoData}}">
+    <view class='card  b-shadow' bindtap='toggleBtn' id="{{item.id}}">
+      <view class='nearCard-fl'>
+        <image src='{{item.imgurl}}'></image>
+      </view>
+      <view class='nearCard-fr'>
+        <view>监控时间：
+          <text class='ck'>{{item.now}}</text>
+        </view>
+        <view>监控位置：
+          <text class='ck'>{{item.pDesc}}</text>
+        </view>
+        <view>数值：
+          <text class='c-green'>{{item.pValue}}</text>
+        </view>
+      </view>
+      <view class='down clearfix {{uhide==item.id?"":"hidden"}}'>
+        <view class='ml30'>控制指令：2018-01-01 11:33:34</view>
+        <view class='ml30'>控制信号：2018.01.01 11:33</view>
+      </view>
+    </view>
+  </block>
+</view>
