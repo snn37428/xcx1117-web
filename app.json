@@ -1,20 +1,20 @@
 {
   "pages":[
-    "pages/myorder/myorder",
+    "pages/tyj/tyj",
     "pages/tm/tm",
     "pages/bb/bb",
-    "pages/detail/detail"
+    "pages/tyc/tyc"
   ],
   "tabBar":{
     "borderStyle": "white",
     "list": [{
         "text": "监控",
-        "pagePath": "pages/myorder/myorder",
+        "pagePath": "pages/tyj/tyj",
         "iconPath": "images/store.png",
         "selectedIconPath": "images/store-selected.png"
     },{
         "text": "控制",
-        "pagePath": "pages/tm/tm",
+        "pagePath": "pages/tyc/tyc",
         "iconPath": "images/store.png",
         "selectedIconPath": "images/store-selected.png"
     }]

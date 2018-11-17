@@ -2,7 +2,7 @@
 <view class='container'>
  <view class='card  b-shadow' bindtap='toggleBtn' >
       <view class='nearCard-fl'>
-        <image src='../../images/clock.png'></image>
+        <image src='../../images/tyj/ck.png'></image>
       </view>
       <view class='nearCard-fr'>
         <view>采集时间：
@@ -30,7 +30,7 @@
           <text class='ck'>{{item.pDesc}}</text>
         </view>
         <view>数值：
-          <text class='c-green'>{{item.pValue}}</text>
+          <text decode='true' class='c-green'>{{item.pValue}}&nbsp;℃</text>
         </view>
       </view>
       <view class='down clearfix {{uhide==item.id?"":"hidden"}}'>

@@ -15,48 +15,50 @@ Page({
 
     console.log('index Launching ...');
 
-//     var that = this;
+    var that = this;
 
-//     var data = {
-//       "datas": [
-//         {
-//           "id": 1,
-//            "imgurl": "../../images/w1.png",
-//           "useDate": "温湿度计09湿度",
-          
-//           "time": "37.22 摄氏度",
-//           "cx": "2018-11-12 23:56:10"
-//         },
-//         {
-//           "id": 2,
-//           "imgurl": "../../images/s1.png",
-//           "useDate": "温湿度计09湿度",
-
-//           "time": "37.22 摄氏度",
-//           "cx": "2018-11-12 23:56:10"
-//         },
-//         {
-//           "id": 1,
-//           "imgurl": "../../images/w2.png",
-//           "useDate": "温湿度计09湿度",
-
-//           "time": "37.22 摄氏度",
-//           "cx": "2018-11-12 23:56:10"
-//         },
-//         {
-//           "id": 2,
-//           "imgurl": "../../images/s2.png",
-//           "useDate": "温湿度计09湿度",
-
-//           "time": "37.22 摄氏度",
-//           "cx": "2018-11-12 23:56:10"
-//         },
-//       ]
-//     };
-//     // //console.log(data.datas);
-//     // that.setData({
-//     //   carInfoData: data.datas
-//     // })
+    var data = {
+      "datas": [
+        {
+          "id": 1,
+           "imgurl": "../../images/tyj/w1.png",
+          "useDate": "温湿度计09湿度",
+          "time": "37.22 摄氏度",
+          "cx": "2018-11-12 23:56:10"
+        },
+        {
+          "id": 2,
+          "imgurl": "../../images/tyj/s1.png",
+          "useDate": "温湿度计09湿度",
+          "time": "37.22 摄氏度",
+          "cx": "2018-11-12 23:56:10"
+        },
+        {
+          "id": 3,
+          "imgurl": "../../images/tyj/w2.png",
+          "useDate": "温湿度计09湿度",
+          "time": "37.22 摄氏度",
+          "cx": "2018-11-12 23:56:10"
+        },
+        {
+          "id": 4,
+          "imgurl": "../../images/tyj/s2.png",
+          "useDate": "温湿度计09湿度",
+          "time": "37.22 摄氏度",
+          "cx": "2018-11-12 23:56:10"
+        },
+        {
+          "id": 5,
+          "imgurl": "../../images/tyj/s2.png",
+          "useDate": "温湿度计09湿度",
+          "time": "37.22 摄氏度",
+          "cx": "2018-11-12 23:56:10"
+        },
+      ]
+    };
+    that.setData({
+      carInfoData: data.datas
+    })
   },
 
 
@@ -70,7 +72,8 @@ Page({
   intervalMonit: function () {
     var that = this;
     wx.request({
-      url: 'http://localhost:8080/product/all',
+    url: 'http://tianyuanfarm.com:8080/product/al4',
+      // url: 'http://127.0.0.1:8080/product/al4',
       header: {
         'Content-Type': 'application/json'
       },
