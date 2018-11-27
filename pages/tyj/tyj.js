@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
 
-    console.log('index Launching ...');
+    // console.log('index Launching ...');
 
     var that = this;
 
@@ -49,7 +49,14 @@ Page({
         },
         {
           "id": 5,
-          "imgurl": "../../images/tyj/s2.png",
+          "imgurl": "../../images/tyj/s3.png",
+          "useDate": "温湿度计09湿度",
+          "time": "37.22 摄氏度",
+          "cx": "2018-11-12 23:56:10"
+        },
+        {
+          "id": 6,
+          "imgurl": "../../images/tyj/s3.png",
           "useDate": "温湿度计09湿度",
           "time": "37.22 摄氏度",
           "cx": "2018-11-12 23:56:10"
@@ -59,26 +66,88 @@ Page({
     that.setData({
       carInfoData: data.datas
     })
-  },
 
+    var that = this;
+    wx.request({
+      url: 'https://tianyuanfarm.com/product/al4',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (r) {
+        // console.log(r);
+        that.setData({
+          carInfoData: r.data
+        });
+      }
+    });
+
+    wx.request({
+      // url: 'https://tianyuanfarm.com/product/i',
+      url: 'http://127.0.0.1:8080/product/i',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (r) {
+        // console.log(r);
+        that.setData({
+          infoData: r.data,
+          xin: 1
+        });
+      },
+      fail: function (r) {
+        that.setData({
+          xin: 1
+        });
+      }
+    });
+
+  },
 
   onShow: function () {
     var that = this;
     setInterval(function () {
       that.intervalMonit();
-    }, 1000);
+    }, 3000);
+
+    setInterval(function () {
+      that.intervalMonit2();
+    }, 2000);
+
+  },
+
+  intervalMonit2: function () {
+    var that = this;
+    wx.request({
+      //  url: 'https://tianyuanfarm.com/product/i',
+     url: 'http://127.0.0.1:8080/product/i',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (r) {
+      //  console.log(r);
+        that.setData({
+          infoData: r.data,
+          xin:1
+        });
+      },
+      fail: function(r){
+        that.setData({
+          xin: 0
+        });
+      }
+    });
   },
 
   intervalMonit: function () {
     var that = this;
     wx.request({
-    url: 'http://tianyuanfarm.com:8080/product/al4',
-      // url: 'http://127.0.0.1:8080/product/al4',
+  //  url: 'https://tianyuanfarm.com/product/al4',
+      url: 'http://127.0.0.1:8080/product/al4',
       header: {
         'Content-Type': 'application/json'
       },
       success: function (r) {
-        console.log(r);
+      //  console.log(r);
         that.setData({
           carInfoData: r.data
         });

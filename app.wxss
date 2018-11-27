@@ -65,3 +65,20 @@ page {
 .hidden {
   display: none;
 }
+
+.wx-switch-input{
+    width:120rpx !important;
+    height:28rpx !important;
+    background: #50D2C2 !important;
+    border: #e4e4e4 !important; /* 2018-07-18 重置开关边框颜色 */
+}
+/*白色样式（false的样式）*/
+.wx-switch-input::before{
+    width:120rpx !important;
+    height: 28rpx !important;
+}
+/*绿色样式（true的样式）*/
+.wx-switch-input::after{
+    width: 90rpx !important;
+    height: 28rpx !important;
+}

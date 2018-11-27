@@ -1,8 +1,6 @@
 {
   "pages":[
     "pages/tyj/tyj",
-    "pages/tm/tm",
-    "pages/bb/bb",
     "pages/tyc/tyc"
   ],
   "tabBar":{

@@ -1,24 +1,25 @@
-
 <view class='container'>
  <view class='card  b-shadow' bindtap='toggleBtn' >
       <view class='nearCard-fl'>
         <image src='../../images/tyj/ck.png'></image>
       </view>
       <view class='nearCard-fr'>
-        <view>采集时间：
-          <text class='ck'>2018-01-01 11:33:34</text>
+        <view >采集时间：
+          <text class='ck'>{{infoData.date}}</text>
         </view>
         <view>系统时间：
-          <text class='ck'>2018-01-01 11:53:34</text>
+          <text class='ck'>{{infoData.cDate}}</text>
         </view>
-        <view>通信线程：
+        <view wx:if="{{xin == 1}}"> 通信线程：
           <text class='c-green'>正常</text>
         </view>
+        <view wx:else> 通信线程：
+          <text class='c-red' style='color:red'>异常</text>
+        </view>
       </view>
-  
     </view>
-  <block wx:for-items="{{carInfoData}}">
-    <view class='card  b-shadow' bindtap='toggleBtn' id="{{item.id}}">
+  <block wx:for-items="{{carInfoData}}" wx:key="item">
+    <view class='card  b-shadow'bindtap='toggleBtn' id="{{item.id}}">
       <view class='nearCard-fl'>
         <image src='{{item.imgurl}}'></image>
       </view>
@@ -34,8 +35,15 @@
         </view>
       </view>
       <view class='down clearfix {{uhide==item.id?"":"hidden"}}'>
-        <view class='ml30'>控制指令：2018-01-01 11:33:34</view>
-        <view class='ml30'>控制信号：2018.01.01 11:33</view>
+        <view class='ml30'>PLC地址：
+        <text decode='true' class='ck'>{{item.modbusAddr}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 逻辑分组：{{item.groupCode}} </text>
+        </view>
+        <view class='ml30'>监控点名：
+        <text decode='true' class='ck'>{{item.pName}}</text>
+        </view>
+        <view class='ml30'>采集时间：
+        <text decode='true' class='ck'>{{item.now}}</text>
+        </view>
       </view>
     </view>
   </block>
