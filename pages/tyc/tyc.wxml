@@ -42,13 +42,16 @@
         
         <view class='ml30'>逻辑分组：
         <text decode='true' class='ck'>{{item.groupCode}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指令回馈：{{item.pValue}}</text>
-       
         </view>
 
-        <view class='ml30'>控制开关：
-          <switch type="switch" data-idd='{{item.pDesc}}' data-idm='{{item.modbusAddr}}' data-idv='{{item.pValue}}' checked="true" bindchange="listenerSwitch"/>
+        <view class='ml30'>控制开关：     
+        <view class="section">
+          <view class="body-view">
+            <slider block-size="18" value= "{{item.sliderValue}}" data-idd='{{item.pDesc}}' data-idm='{{item.modbusAddr}}'                     data-idv='{{item.pValue}}' checked="true" bindchange="listenerSwitch" />
+          </view>
         </view>
-        
+      </view>
+
       </view>
     </view>
   </block>

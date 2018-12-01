@@ -77,8 +77,8 @@ Page({
     });
 
     wx.request({
-      // url: 'https://tianyuanfarm.com/product/i',
-       url: 'http://127.0.0.1:8080/product/i',
+      url: 'https://tianyuanfarm.com/product/i',
+      //  url: 'http://127.0.0.1:8080/product/i',
       header: {
         'Content-Type': 'application/json'
       },
@@ -111,15 +111,15 @@ Page({
   intervalMonit2: function () {
     var that = this;
     wx.request({
-      // url: 'https://tianyuanfarm.com/product/i',
-       url: 'http://127.0.0.1:8080/product/i',
+       url: 'https://tianyuanfarm.com/product/i',
+      //  url: 'http://127.0.0.1:8080/product/i',
       header: {
         'Content-Type': 'application/json'
       },
       success: function (r) {
         // console.log(r);
         that.setData({
-          infoData: r.data,
+          infoData: r.data, 
           xin: 1
         });
       },
@@ -134,8 +134,8 @@ Page({
   intervalMonit: function () {
     var that = this;
     wx.request({
-      // url: 'https://tianyuanfarm.com/product/al1',
-       url: 'http://127.0.0.1:8080/product/al1',
+      url: 'https://tianyuanfarm.com/product/al1',
+      //  url: 'http://127.0.0.1:8080/product/al1',
       header: {
         'Content-Type': 'application/json'
       },
@@ -163,52 +163,47 @@ Page({
     }
   },
 
-  login: function () {
-    if (wx.getStorageSync("token")) {
-      return;
-    }
-    var that = this;
-    wx.login({
-      success: function (res) {
-        wx.request({
-          url: "http://ty.com" + '/login/in?code',
-          data: {
-            code: res.code
-          },
-          success: function (res) {
-            // console.log(res.data.code + "343214");
-            if (res.data.code != 0) {
-              // 登录错误 
-              wx.hideLoading();
-              wx.showModal({
-                title: '提示',
-                content: '无法登录，请重试',
-                showCancel: false
-              })
-              return;
-            }
-            wx.setStorage({
-              key: "token",
-              data: res.data.data.token
-            })
-          },
-          fail: function () {
-            wx.showModal({
-              title: '提示',
-              content: '无法登录，请重试',
-              showCancel: false
-            })
-            return;
-          }
-        })
-      }
-    })
-  },
-
-
-
-
-
+  // login: function () {
+  //   if (wx.getStorageSync("token")) {
+  //     return;
+  //   }
+  //   var that = this;
+  //   wx.login({
+  //     success: function (res) {
+  //       wx.request({
+  //         url: "http://ty.com" + '/login/in?code',
+  //         data: {
+  //           code: res.code
+  //         },
+  //         success: function (res) {
+  //           // console.log(res.data.code + "343214");
+  //           if (res.data.code != 0) {
+  //             // 登录错误 
+  //             wx.hideLoading();
+  //             wx.showModal({
+  //               title: '提示',
+  //               content: '无法登录，请重试',
+  //               showCancel: false
+  //             })
+  //             return;
+  //           }
+  //           wx.setStorage({
+  //             key: "token",
+  //             data: res.data.data.token
+  //           })
+  //         },
+  //         fail: function () {
+  //           wx.showModal({
+  //             title: '提示',
+  //             content: '无法登录，请重试',
+  //             showCancel: false
+  //           })
+  //           return;
+  //         }
+  //       })
+  //     }
+  //   })
+  // },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -262,19 +257,65 @@ Page({
 
   },
   listenerSwitch: function (e) {
+    var sd ;
+    var value = e.detail.value;
+    // console.log(value);
+    if (value>80) {
+      sd = 1;
+    } else if (value<20){
+      sd =0;
+    } else {
+      wx.showModal({
+        showCancel: false,
+        title: '提示',
+        content: '滑至最左侧，或最右侧生效',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      });
+      return;
+    }
     var idd = e.currentTarget.dataset.idd;
     var idm = e.currentTarget.dataset.idm;
     var idv = e.currentTarget.dataset.idv;
-    var sd = idv==1 ? 0:1;
     var st = '控制位置：' + idd + '\r\n控制地址：' + idm + '\r\n控制状态：' + sd +'\r\n';
     wx.showModal({
       title: '是否确定下发指令',
       content: st,
       success: function (res) {
         if (res.confirm) {
-          console.log('用户点击确定')
+          wx.request({
+          // url: 'https://tianyuanfarm.com/c/c',
+           url: 'http://127.0.0.1:8080/c/c',
+            data: {
+              idm : idm,
+              sd : sd
+            },
+            success: function (res) {
+      
+            },
+            fail: function () {
+              wx.showModal({
+                showCancel: false,
+                title: '提示',
+                content: '指令下发失败，请联系管理员!',
+                success: function (res) {
+                  if (res.confirm) {
+                
+                  } else if (res.cancel) {
+                  
+                  }
+                }
+              });
+              return;
+            }
+          })
         } else if (res.cancel) {
-          console.log('用户点击取消')
+          // console.log('用户点击取消')
         }
       }
     })
