@@ -1,81 +1,26 @@
-
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    plist: []
+    loading: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    var data = {
-      "datas": [
-        {
-          "id": 1,
-          "imgurl": "../../images/tyc/wzlk.png",
-          "useDate": "外遮阳展开",
-          "time": "37.22 摄氏度",
-          "cx": "2018-11-12 23:56:10"
-        },
-        {
-          "id": 2,
-          "imgurl": "../../images/tyc/wzlg.png",
-          "useDate": "外遮阳合拢",
-          "time": "37.22 摄氏度",
-          "cx": "2018-11-12 23:56:10"
-        },
-        {
-          "id": 3,
-          "imgurl": "../../images/tyc/nzlk.png",
-          "useDate": "内遮阳展开",
-          "time": "37.22 摄氏度",
-          "cx": "2018-11-12 23:56:10"
-        },
-        {
-          "id": 4,
-          "imgurl": "../../images/tyc/nzlg.png",
-          "useDate": "内遮阳合拢",
-          "time": "37.22 摄氏度",
-          "cx": "2018-11-12 23:56:10"
-        },
-        {
-          "id": 5,
-          "imgurl": "../../images/tyc/tck.png",
-          "useDate": "顶天窗打开",
-          "time": "37.22 摄氏度",
-          "cx": "2018-11-12 23:56:10"
-        },
-        {
-          "id": 6,
-          "imgurl": "../../images/tyc/sltcg2.png",
-          "useDate": "顶天窗打开",
-          "time": "37.22 摄氏度",
-          "cx": "2018-11-12 23:56:10"
-        },
-      ]
-    };
-    that.setData({
-      carInfoData: data.datas
-    })
-    var that = this;
     wx.request({
       url: 'https://tianyuanfarm.com/product/al1',
       header: {
         'Content-Type': 'application/json'
       },
       success: function (r) {
-        // console.log(r);
         that.setData({
           carInfoData: r.data
         });
       }
     });
-
     wx.request({
       url: 'https://tianyuanfarm.com/product/i',
       //  url: 'http://127.0.0.1:8080/product/i',
@@ -83,36 +28,25 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (r) {
-  
         that.setData({
           infoData: r.data,
           xin: 1
         });
-      },
-      fail: function (r) {
-        that.setData({
-          xin: 1
-        });
       }
     });
-
-  },
-  onShow: function () {
     var that = this;
-    setInterval(function () {
-      that.intervalMonit();
-    }, 3000);
-
-    setInterval(function () {
-      that.intervalMonit2();
-    }, 2000);
+    that.setData({
+      carInfoData: setInterval(function () {
+        that.intervalMonit();
+        that.intervalMonit2();
+      }, 2000)
+    })
   },
-
   intervalMonit2: function () {
     var that = this;
     wx.request({
        url: 'https://tianyuanfarm.com/product/i',
-      //  url: 'http://127.0.0.1:8080/product/i',
+      //url: 'http://127.0.0.1:8080/product/i',
       header: {
         'Content-Type': 'application/json'
       },
@@ -135,7 +69,7 @@ Page({
     var that = this;
     wx.request({
       url: 'https://tianyuanfarm.com/product/al1',
-      //  url: 'http://127.0.0.1:8080/product/al1',
+      //url: 'http://127.0.0.1:8080/product/al1',
       header: {
         'Content-Type': 'application/json'
       },
@@ -218,19 +152,21 @@ Page({
   // onShow: function () {
 
   // },
-
-  /**
+  
+ /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    let loading = this.data.loading;
+    let that = this;
+    clearInterval(loading)
+    console.log("cc");
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
   },
 
   /**
@@ -249,7 +185,9 @@ Page({
       duration: 1000
     })
   },
+  onShow: function () {
 
+  },
   /**
    * 用户点击右上角分享
    */
@@ -289,8 +227,8 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-          // url: 'https://tianyuanfarm.com/c/c',
-           url: 'http://127.0.0.1:8080/c/c',
+           url: 'https://tianyuanfarm.com/c/c',
+          //  url: 'http://127.0.0.1:8080/c/c',
             data: {
               idm : idm,
               sd : sd
