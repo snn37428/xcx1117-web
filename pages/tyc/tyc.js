@@ -3,61 +3,56 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loading: []
+    loading: [],
+    status: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.request({
-      url: 'https://tianyuanfarm.com/product/al1',
+      // url: 'https://tianyuanfarm.com/product/al1',
+      url: 'http://127.0.0.1:8080/product/al1',
       header: {
         'Content-Type': 'application/json'
       },
-      success: function (r) {
+      success: function(r) {
         that.setData({
-          carInfoData: r.data
-        });
-      }
-    });
-    wx.request({
-      url: 'https://tianyuanfarm.com/product/i',
-      //  url: 'http://127.0.0.1:8080/product/i',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: function (r) {
-        that.setData({
-          infoData: r.data,
+          carInfoData: r.data.cells,
+          infoData: r.data.xin,
           xin: 1
         });
       }
     });
+
     var that = this;
     that.setData({
-      carInfoData: setInterval(function () {
+      carInfoData: setInterval(function() {
         that.intervalMonit();
-        that.intervalMonit2();
+        // that.intervalMonit2();
       }, 2000)
     })
   },
-  intervalMonit2: function () {
+
+  // 定时方法
+  intervalMonit: function() {
     var that = this;
     wx.request({
-       url: 'https://tianyuanfarm.com/product/i',
-      //url: 'http://127.0.0.1:8080/product/i',
+      // url: 'https://tianyuanfarm.com/product/al1',
+      url: 'http://127.0.0.1:8080/product/al1',
       header: {
         'Content-Type': 'application/json'
       },
-      success: function (r) {
-        // console.log(r);
+      success: function(r) {
+        //  console.log(r);
         that.setData({
-          infoData: r.data, 
+          carInfoData: r.data.cells,
+          infoData: r.data.xin,
           xin: 1
         });
       },
-      fail: function (r) {
+      fail: function(r) {
         that.setData({
           xin: 0
         });
@@ -65,24 +60,8 @@ Page({
     });
   },
 
-  intervalMonit: function () {
-    var that = this;
-    wx.request({
-      url: 'https://tianyuanfarm.com/product/al1',
-      //url: 'http://127.0.0.1:8080/product/al1',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: function (r) {
-      //  console.log(r);
-        that.setData({
-          carInfoData: r.data
-        });
-      }
-    });
-  },
   //切换隐藏和显示 
-  toggleBtn: function (event) {
+  toggleBtn: function(event) {
     var that = this;
     var toggleBtnVal = that.data.uhide;
     var itemId = event.currentTarget.id;
@@ -97,117 +76,29 @@ Page({
     }
   },
 
-  // login: function () {
-  //   if (wx.getStorageSync("token")) {
-  //     return;
-  //   }
-  //   var that = this;
-  //   wx.login({
-  //     success: function (res) {
-  //       wx.request({
-  //         url: "http://ty.com" + '/login/in?code',
-  //         data: {
-  //           code: res.code
-  //         },
-  //         success: function (res) {
-  //           // console.log(res.data.code + "343214");
-  //           if (res.data.code != 0) {
-  //             // 登录错误 
-  //             wx.hideLoading();
-  //             wx.showModal({
-  //               title: '提示',
-  //               content: '无法登录，请重试',
-  //               showCancel: false
-  //             })
-  //             return;
-  //           }
-  //           wx.setStorage({
-  //             key: "token",
-  //             data: res.data.data.token
-  //           })
-  //         },
-  //         fail: function () {
-  //           wx.showModal({
-  //             title: '提示',
-  //             content: '无法登录，请重试',
-  //             showCancel: false
-  //           })
-  //           return;
-  //         }
-  //       })
-  //     }
-  //   })
-  // },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  // 监听滚动条事件
+  listenerSwitch: function(e) {
+    var that = this;
+    that.instructions(e);
 
   },
 
-  // /**
-  //  * 生命周期函数--监听页面显示
-  //  */
-  // onShow: function () {
-
-  // },
-  
- /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    let loading = this.data.loading;
-    let that = this;
-    clearInterval(loading)
-    console.log("cc");
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    wx.showToast({
-      title: '已经到底了',
-      duration: 1000
-    })
-  },
-  onShow: function () {
-
-  },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-  listenerSwitch: function (e) {
-    var sd ;
+  // 指令下发
+  instructions: function(e) {
+    var that = this;
+    var sd;
     var value = e.detail.value;
     // console.log(value);
-    if (value>80) {
+    if (value > 80) {
       sd = 1;
-    } else if (value<20){
-      sd =0;
+    } else if (value < 20) {
+      sd = 0;
     } else {
       wx.showModal({
         showCancel: false,
         title: '提示',
-        content: '滑至最左侧，或最右侧生效',
-        success: function (res) {
+        content: '滑至最左侧，或最右侧生效\r\n最左端侧指令：0\r\n最右端侧指令：1',
+        success: function(res) {
           if (res.confirm) {
             console.log('用户点击确定')
           } else if (res.cancel) {
@@ -217,35 +108,52 @@ Page({
       });
       return;
     }
+
     var idd = e.currentTarget.dataset.idd;
     var idm = e.currentTarget.dataset.idm;
     var idv = e.currentTarget.dataset.idv;
-    var st = '控制位置：' + idd + '\r\n控制地址：' + idm + '\r\n控制状态：' + sd +'\r\n';
+    var st = '控制位置：' + idd + '\r\n控制地址：' + idm + '\r\n控制状态：' + sd + '\r\n';
     wx.showModal({
       title: '是否确定下发指令',
       content: st,
-      success: function (res) {
+      success: function(res) {
+        var cauth = wx.getStorageSync("auth");
+        var ctoken = wx.getStorageSync("token");
+        var cfromId = wx.getStorageSync("token");
+        if (!cauth) {
+          wx.showModal({
+            title: '提示',
+            content: '没有此项控制权限，请联系管理员',
+            showCancel: false
+          })
+          return;
+        }
+
+        console.log(cfromId);
+
         if (res.confirm) {
           wx.request({
-           url: 'https://tianyuanfarm.com/c/c',
-          //  url: 'http://127.0.0.1:8080/c/c',
+            //  url: 'https://tianyuanfarm.com/c/c',
+            url: 'http://127.0.0.1:8080/c/c',
             data: {
-              idm : idm,
-              sd : sd
+              idm: idm,
+              sd: sd,
+              token: ctoken,
+              fromId: cfromId,
             },
-            success: function (res) {
-      
+            success: function(res) {
+
             },
-            fail: function () {
+            fail: function() {
               wx.showModal({
                 showCancel: false,
                 title: '提示',
                 content: '指令下发失败，请联系管理员!',
-                success: function (res) {
+                success: function(res) {
                   if (res.confirm) {
-                
+
                   } else if (res.cancel) {
-                  
+
                   }
                 }
               });
@@ -258,4 +166,73 @@ Page({
       }
     })
   },
+
+  formSubmit: function (e) {
+    var that = this
+    var formid = e.detail.formId;//在参数中获取formid
+    console.log(formid)
+    wx.setStorage({
+      key: "fromId",
+      data: formid,
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  // /**
+  //  * 生命周期函数--监听页面显示
+  //  */
+  // onShow: function () {
+
+  // },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+    let loadings = this.data.carInfoData;
+    let that = this;
+    clearInterval(loadings)
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+    let loadings = this.data.carInfoData;
+    let that = this;
+    clearInterval(loadings)
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    wx.showToast({
+      title: '已经到底了',
+      duration: 1000
+    })
+  },
+  onShow: function() {
+
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  },
+
 })

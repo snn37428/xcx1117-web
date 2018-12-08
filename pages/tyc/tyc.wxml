@@ -21,6 +21,10 @@
     </view>
   <block wx:for-items="{{carInfoData}}" wx:key="item">
     <view class='card  b-shadow' bindtap='toggleBtn' id="{{item.id}}">
+
+    <form report-submit='true' bindsubmit="formSubmit">
+<button class='login-user'form-type='submit' >
+
       <view class='nearCard-fl'>
         <image src='{{item.imgurl}}'></image>
       </view>
@@ -35,6 +39,11 @@
           <text class='c-green'>{{item.pValue}}</text>
         </view>
       </view>
+
+
+</button>
+</form>
+
       <view class='down clearfix {{uhide==item.id?"":"hidden"}}'>
         <view class='ml30'>PLC地址：
         <text decode='true' class='ck'>{{item.modbusAddr}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 控制指令： {{item.pName}}</text>

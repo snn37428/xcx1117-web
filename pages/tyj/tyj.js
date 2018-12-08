@@ -1,65 +1,53 @@
-
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    loading: []
+    loading: [],
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.request({
-      url: 'https://tianyuanfarm.com/product/al4',
+      // url: 'https://tianyuanfarm.com/product/al4',
+      url: 'http://127.0.0.1:8080/product/al4',
       header: {
         'Content-Type': 'application/json'
       },
-      success: function (r) {
-        // console.log(r);
+      success: function(r) {
         that.setData({
-          carInfoData: r.data
+          carInfoData: r.data.cells,
+          infoData: r.data.xin,
+          xin: 1
         });
       }
     });
-    wx.request({
-       url: 'https://tianyuanfarm.com/product/i',
-      // url: 'http://127.0.0.1:8080/product/i',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: function (r) {
-        that.setData({
-          infoData: r.data,
-          xin: 1
-        });
-      },
-    });
     var that = this;
     that.setData({
-      carInfoData: setInterval(function () {
+      carInfoData: setInterval(function() {
         that.intervalMonit();
-        that.intervalMonit2();
       }, 2000)
     })
   },
 
-  intervalMonit2: function () {
+  intervalMonit: function() {
     var that = this;
     wx.request({
-       url: 'https://tianyuanfarm.com/product/i',
-     // url: 'http://127.0.0.1:8080/product/i',
+      // url: 'https://tianyuanfarm.com/product/al4',
+      url: 'http://127.0.0.1:8080/product/al4',
       header: {
         'Content-Type': 'application/json'
       },
-      success: function (r) {
-      //  console.log(r);
+      success: function(r) {
         that.setData({
-          infoData: r.data,
-          xin:1
+          carInfoData: r.data.cells,
+          infoData: r.data.xin,
+          xin: 1
         });
       },
-      fail: function(r){
+      fail: function(r) {
         that.setData({
           xin: 0
         });
@@ -67,24 +55,9 @@ Page({
     });
   },
 
-  intervalMonit: function () {
-    var that = this;
-    wx.request({
-    url: 'https://tianyuanfarm.com/product/al4',
-      // url: 'http://127.0.0.1:8080/product/al4',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: function (r) {
-      //  console.log(r);
-        that.setData({
-          carInfoData: r.data
-        });
-      }
-    });
-  },
+
   //切换隐藏和显示 
-  toggleBtn: function (event) {
+  toggleBtn: function(event) {
     var that = this;
     var toggleBtnVal = that.data.uhide;
     var itemId = event.currentTarget.id;
@@ -101,49 +74,48 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    let loading = this.data.loading;
+  onHide: function() {
+    let loadings = this.data.carInfoData;
     let that = this;
-    clearInterval(loading)
+    clearInterval(loadings)
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+    let loadings = this.data.carInfoData;
+    let that = this;
+    clearInterval(loadings)
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  },
+  onPullDownRefresh: function() {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     wx.showToast({
       title: '已经到底了',
       duration: 1000
     })
   },
 
-  onShow: function () {
-  },
+  onShow: function() {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  },
+  onShareAppMessage: function() {},
 
 })
