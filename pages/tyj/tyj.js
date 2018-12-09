@@ -11,8 +11,8 @@ Page({
    */
   onLoad: function(options) {
     wx.request({
-      // url: 'https://tianyuanfarm.com/product/al4',
-      url: 'http://127.0.0.1:8080/product/al4',
+       url: 'https://tianyuanfarm.com/product/al4',
+      // url: 'http://127.0.0.1:8080/product/al4',
       header: {
         'Content-Type': 'application/json'
       },
@@ -35,8 +35,8 @@ Page({
   intervalMonit: function() {
     var that = this;
     wx.request({
-      // url: 'https://tianyuanfarm.com/product/al4',
-      url: 'http://127.0.0.1:8080/product/al4',
+      url: 'https://tianyuanfarm.com/product/al4',
+      // url: 'http://127.0.0.1:8080/product/al4',
       header: {
         'Content-Type': 'application/json'
       },

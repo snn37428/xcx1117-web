@@ -10,7 +10,8 @@ App({
         console.log(res);
         wx.request({
           // url: "http://ty.com" + '/login/in?code',
-          url: "http://127.0.0.1:8080/login/in?code=",
+          url: "https://tianyuanfarm.com/login/in?code=",
+          // url: "http://127.0.0.1:8080/login/in?code=",
           data: {
             code: res.code
           },

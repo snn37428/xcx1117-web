@@ -12,8 +12,8 @@ Page({
    */
   onLoad: function(options) {
     wx.request({
-      // url: 'https://tianyuanfarm.com/product/al1',
-      url: 'http://127.0.0.1:8080/product/al1',
+      url: 'https://tianyuanfarm.com/product/al1',
+      // url: 'http://127.0.0.1:8080/product/al1',
       header: {
         'Content-Type': 'application/json'
       },
@@ -39,8 +39,8 @@ Page({
   intervalMonit: function() {
     var that = this;
     wx.request({
-      // url: 'https://tianyuanfarm.com/product/al1',
-      url: 'http://127.0.0.1:8080/product/al1',
+       url: 'https://tianyuanfarm.com/product/al1',
+      // url: 'http://127.0.0.1:8080/product/al1',
       header: {
         'Content-Type': 'application/json'
       },
@@ -119,7 +119,7 @@ Page({
       success: function(res) {
         var cauth = wx.getStorageSync("auth");
         var ctoken = wx.getStorageSync("token");
-        var cfromId = wx.getStorageSync("token");
+        var cfromId = wx.getStorageSync("fromId");
         if (!cauth) {
           wx.showModal({
             title: '提示',
@@ -133,13 +133,18 @@ Page({
 
         if (res.confirm) {
           wx.request({
-            //  url: 'https://tianyuanfarm.com/c/c',
-            url: 'http://127.0.0.1:8080/c/c',
+             url: 'https://tianyuanfarm.com/c/c',
+            // url: 'http://127.0.0.1:8080/c/c',
+            method: "POST",
+            header: {
+              "content-type": "application/x-www-form-urlencoded"
+            },
             data: {
               idm: idm,
               sd: sd,
               token: ctoken,
               fromId: cfromId,
+              idd: idd,
             },
             success: function(res) {
 
