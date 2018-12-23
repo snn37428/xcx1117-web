@@ -12,8 +12,8 @@ Page({
    */
   onLoad: function(options) {
     wx.request({
-      url: 'https://tianyuanfarm.com/product/al1',
-      // url: 'http://127.0.0.1:8080/product/al1',
+      // url: 'https://tianyuanfarm.com/product/al1',
+      url: 'http://127.0.0.1:8080/product/al1',
       header: {
         'Content-Type': 'application/json'
       },
@@ -120,24 +120,21 @@ Page({
         var cauth = wx.getStorageSync("auth");
         var ctoken = wx.getStorageSync("token");
         var cfromId = wx.getStorageSync("fromId");
-        if (!cauth) {
-          wx.showModal({
-            title: '提示',
-            content: '没有此项控制权限，请联系管理员',
-            showCancel: false
-          })
-          return;
-        }
-
-        console.log(cfromId);
-
+        // if (!cauth) {
+        //   wx.showModal({
+        //     title: '提示',
+        //     content: '没有此项控制权限，请联系管理员',
+        //     showCancel: false
+        //   })
+        //   return;
+        // }
         if (res.confirm) {
           wx.request({
-             url: 'https://tianyuanfarm.com/c/c',
-            // url: 'http://127.0.0.1:8080/c/c',
+            url: 'https://tianyuanfarm.com/c/c',
+              // url: 'http://127.0.0.1:8081/c/c',
             method: "POST",
             header: {
-              "content-type": "application/x-www-form-urlencoded"
+              'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
             },
             data: {
               idm: idm,
